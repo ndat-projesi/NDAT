@@ -158,7 +158,7 @@ namespace NDAT
     }
 
     // Koltuk sınıfı
-    public class Koltuk
+    public abstract class Koltuk
     {
         public int KoltukId { get; set; }
         public KoltukDurumu Durum { get; set; }
@@ -173,8 +173,27 @@ namespace NDAT
             Tip = tip;
             Konum = konum;
         }
+        public abstract decimal Fiyat { get; }
+        public bool KoltukDurumu { get; internal set; }
     }
+    public class VIPKoltuk : Koltuk
+    {
+        public VIPKoltuk(int koltukId, KoltukDurumu durum, string konum)
+            : base(koltukId, durum, "VIP", konum)
+        {
+        }
 
+        public override decimal Fiyat => 500m; // VIP koltuk fiyatı
+    }
+    public class NormalKoltuk : Koltuk
+    {
+        public NormalKoltuk(int koltukId, KoltukDurumu durum, string konum)
+            : base(koltukId, durum, "Normal", konum)
+        {
+        }
+
+        public override decimal Fiyat => 200m; // Normal koltuk fiyatı
+    }
 
 
 

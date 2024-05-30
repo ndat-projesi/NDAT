@@ -69,13 +69,13 @@ namespace NDAT
             if (uye != null)
             {
                 this.Hide();
-                Form2 mainForm = new Form2();
+                Form3 mainForm = new Form3();
                 
                 mainForm.Show();
             }
-            
+                
             else
-            {
+            {                                                   
                 MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
