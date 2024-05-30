@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace NDAT
 {
+    public enum UyeTipi
+    {
+        Normal,
+        VIP,
+        Daimi
+    }
     public class Uye
     {
         
@@ -16,8 +22,8 @@ namespace NDAT
         public string Telefon { get; set; }
         public string Email { get; set; }
         public DateTime Uyeliktarihi { get; set; }
-        public string UyelikTipi { get; set; }
-        public Uye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, string uyelikTipi)
+        public UyeTipi UyelikTipi { get; set; }
+        public Uye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, UyeTipi uyelikTipi)
         {
             UyeId = uyeId;
             Ad = ad;
@@ -27,8 +33,20 @@ namespace NDAT
             Uyeliktarihi = uyeliktarihi;
             UyelikTipi = uyelikTipi;
         }
+        public double GetDiscountedPrice(double basePrice)
+        {
+            switch (UyelikTipi)
+            {
+                case UyeTipi.VIP:
+                    return basePrice * 0.75; // 20% discount
+                case UyeTipi.Daimi:
+                    return basePrice * 0.9; // 30% discount
+                default:
+                    return basePrice; // No discount
+            }
+        }
 
-       
+
 
         public override string ToString()
         {
@@ -40,12 +58,13 @@ namespace NDAT
         public int YillikBiletSayisi { get; set; }
         public int IndirimSayisi { get; set; }
 
-        public DaimiUye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, string uyelikTipi, int yillikBiletSayisi, int indirimSayisi)
+        public DaimiUye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, UyeTipi uyelikTipi, int yillikBiletSayisi, int indirimSayisi)
             : base(uyeId, ad, soyad, telefon, email, uyeliktarihi, uyelikTipi)
         {
             YillikBiletSayisi = yillikBiletSayisi;
             IndirimSayisi = indirimSayisi;
         }
+        
     }
 
     public class VIPUye : Uye
@@ -53,12 +72,13 @@ namespace NDAT
         public int YillikBiletSayisi { get; set; }
         public int IndirimSayisi { get; set; }
 
-        public VIPUye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, string uyelikTipi, int yillikBiletSayisi, int indirimSayisi)
+        public VIPUye(int uyeId, string ad, string soyad, string telefon, string email, DateTime uyeliktarihi, UyeTipi uyelikTipi, int yillikBiletSayisi, int indirimSayisi)
             : base(uyeId, ad, soyad, telefon, email, uyeliktarihi, uyelikTipi)
         {
             YillikBiletSayisi = yillikBiletSayisi;
             IndirimSayisi = indirimSayisi;
         }
+        
     }
 
 
@@ -154,7 +174,8 @@ namespace NDAT
     public enum KoltukDurumu
     {
         Bos,
-        Dolu
+        Dolu,
+        Rezerve
     }
 
     // Koltuk sınıfı
@@ -175,12 +196,23 @@ namespace NDAT
         }
         public abstract decimal Fiyat { get; }
         public bool KoltukDurumu { get; internal set; }
+
+        public static implicit operator List<object>(Koltuk v)
+        {
+            throw new NotImplementedException();
+        }
+        
+
+
+
     }
     public class VIPKoltuk : Koltuk
     {
         public VIPKoltuk(int koltukId, KoltukDurumu durum, string konum)
             : base(koltukId, durum, "VIP", konum)
         {
+
+
         }
 
         public override decimal Fiyat => 500m; // VIP koltuk fiyatı
