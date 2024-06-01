@@ -1,6 +1,6 @@
 ﻿namespace NDAT
 {
-    partial class Form4
+    partial class Odeme_Ekrani
     {
         /// <summary>
         /// Required designer variable.

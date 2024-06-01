@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace NDAT
 {
-    public partial class Form4 : Form
+    public partial class Odeme_Ekrani : Form
     {
-        public Form4()
+        public Odeme_Ekrani()
         {
             InitializeComponent();
         }

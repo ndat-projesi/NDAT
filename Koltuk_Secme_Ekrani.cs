@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace NDAT
 {
-    public partial class Form3 : Form
+    public partial class Koltuk_Secme_Ekrani : Form
     {
         private List<Koltuk> vipKoltuklar;
         private List<Koltuk> normalKoltuklar;
-        public Form3()
+        public Koltuk_Secme_Ekrani()
         {
 
             InitializeComponent();
@@ -23,23 +23,7 @@ namespace NDAT
         }
         private void InitializeKoltuklar()
         {
-            vipKoltuklar = new List<Koltuk>
-            {
-                new VIPKoltuk(1, KoltukDurumu.Bos, "1A"),
-                new VIPKoltuk(2, KoltukDurumu.Bos, "1B"),
-                new VIPKoltuk(3, KoltukDurumu.Dolu, "1C"),
-                new VIPKoltuk(4, KoltukDurumu.Dolu, "1D")
-            };
-
-            normalKoltuklar = new List<Koltuk>
-            {
-                new NormalKoltuk(5, KoltukDurumu.Bos, "2A"),
-                new NormalKoltuk(6, KoltukDurumu.Bos, "2B"),
-                new NormalKoltuk(7, KoltukDurumu.Dolu, "2C"),
-                new NormalKoltuk(8, KoltukDurumu.Dolu, "2D"),
-                new NormalKoltuk(9, KoltukDurumu.Bos, "3A"),
-                new NormalKoltuk(10, KoltukDurumu.Bos, "3B")
-            };
+            
         }
         private void LoadComboBoxes()
         {
@@ -63,8 +47,6 @@ namespace NDAT
                     comboBox2.Items.Add(koltuk);
                 }
             }
-            
-           
         }
         
 
@@ -110,7 +92,7 @@ namespace NDAT
             comboBox2.Items.Clear();
             LoadComboBoxes();
             this.Hide();
-            Form4 mainForm = new Form4();
+            Odeme_Ekrani mainForm = new Odeme_Ekrani();
 
             mainForm.Show();
         }
