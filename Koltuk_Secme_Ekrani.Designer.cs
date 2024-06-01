@@ -1,6 +1,6 @@
 ﻿namespace NDAT
 {
-    partial class Form3
+    partial class Koltuk_Secme_Ekrani
     {
         /// <summary>
         /// Required designer variable.
