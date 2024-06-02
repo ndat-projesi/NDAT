@@ -16,6 +16,8 @@ namespace NDAT
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Giriş ekranını göster.
             Application.Run(new Kullanici_Giris_Ekrani());
         }
     }

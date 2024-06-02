@@ -9,25 +9,31 @@ namespace NDAT
     public enum KoltukDurumu
     {
         Bos,
-        Rezerve,
-        Dolu
+        Dolu,
+        Rezerve
+    }
+
+    public enum KoltukTipi
+    {
+        VIP,
+        Normal
     }
 
     // Koltuk sınıfı
     public class Koltuk
     {
-        public int KoltukId { get; set; }
+        public int KoltukKonum { get; set; }
         public KoltukDurumu Durum { get; set; }
-        public string Konum { get; set; }
 
-        // Constructor
-        public Koltuk(int koltukId, KoltukDurumu durum, decimal fiyat)
+        public KoltukTipi Tip { get; set; }
+
+        public Koltuk(int koltukkonum, KoltukDurumu durum, KoltukTipi tip, decimal fiyat)
         {
-            KoltukId = koltukId;
+            KoltukKonum = koltukkonum;
             Durum = durum;
             Fiyat = fiyat;
+            Tip = tip;
         }
         public decimal Fiyat { get; set; }
-        public bool KoltukDurumu { get; set; }
     }
 }

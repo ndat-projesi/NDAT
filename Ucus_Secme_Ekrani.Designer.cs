@@ -116,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 276);
+            this.ClientSize = new System.Drawing.Size(604, 276);
             this.Controls.Add(this.UcusBulButonu);
             this.Controls.Add(this.UcusPanel);
             this.Controls.Add(this.GidisTarihSecici);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NDAT.Object_Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,7 +28,6 @@ namespace NDAT
 
         private void GirisButonu_Click(object sender, EventArgs e)
         {
-            // Basit şifre kontrolü.
             // Eğer eşleşme olursa "uye" değişkenine uye bilgilerini atıyoruz.
             Uye uye = uyeler.Find(u =>
                                   u.Ad.Equals(KullaniciAdiKutusu.Text, StringComparison.OrdinalIgnoreCase) &&
@@ -36,7 +36,11 @@ namespace NDAT
 
             if (uye != null)
             {
-                Ucus_Secme_Ekrani ucusSecmeEkrani = new Ucus_Secme_Ekrani(uye);
+                // Giriş yapan kullanıcıyı kaydet.
+                Demo_Verileri.girisYapanUye = uye;
+
+                // Uçuş seçme ekranını göster.
+                Ucus_Secme_Ekrani ucusSecmeEkrani = new Ucus_Secme_Ekrani();
                 Hide();
                 ucusSecmeEkrani.Show();
             }

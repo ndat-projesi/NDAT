@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NDAT.Object_Class;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,8 +13,7 @@ namespace NDAT
 {
     public partial class Ucus_Secme_Ekrani : Form
     {
-        private List<Ucus> ucuslar;
-        public Ucus_Secme_Ekrani(Uye uye)
+        public Ucus_Secme_Ekrani()
         {
             InitializeComponent();
 
@@ -24,8 +24,6 @@ namespace NDAT
             // ComboBox'ların default değerlerini seç.
             KalkisComboBox.SelectedIndex = 0;
             VarisComboBox.SelectedIndex = 1;
-
-            ucuslar = VeriUretici.HaftalikUcusListesiOlustur(0);
         }
 
         public void paneleUcusEkle(Ucus ucus)
@@ -33,7 +31,8 @@ namespace NDAT
             Ucus_Kutusu yeni_kutu = new Ucus_Kutusu(ucus);
 
             yeni_kutu.UcusSecmeButonu.Click += (sender, e) =>
-            { 
+            {
+                Demo_Verileri.secilenUcus = ucus;
                 Koltuk_Secme_Ekrani koltuk_Secme_Ekrani = new Koltuk_Secme_Ekrani();
                 Hide();
                 koltuk_Secme_Ekrani.Show();
@@ -71,7 +70,7 @@ namespace NDAT
             UcusPanel.Controls.Clear();
 
             // Uçuşları bul.
-            List<Ucus> bulunanUcuslar = ucuslar.FindAll(ucus =>
+            List<Ucus> bulunanUcuslar = Demo_Verileri.ucuslar.FindAll(ucus =>
             {
                 return ucus.KalkisYeri.Equals(KalkisComboBox.Text) &&
                        ucus.VarisYeri.Equals(VarisComboBox.Text) &&
