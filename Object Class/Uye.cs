@@ -25,6 +25,11 @@ namespace NDAT
             Uyeliktarihi = uyeliktarihi;
             UyelikTipi = uyelikTipi;
         }
+
+        public virtual decimal indirimHesapla(decimal fiyat)
+        {
+            return fiyat;
+        }
     }
     public class DaimiUye : Uye
     {
@@ -36,6 +41,11 @@ namespace NDAT
         {
             YillikBiletSayisi = yillikBiletSayisi;
             IndirimSayisi = indirimSayisi;
+        }
+
+        public override decimal indirimHesapla(decimal fiyat)
+        {
+            return fiyat * (decimal) 0.9;
         }
     }
 
@@ -49,6 +59,11 @@ namespace NDAT
         {
             YillikBiletSayisi = yillikBiletSayisi;
             IndirimSayisi = indirimSayisi;
+        }
+
+        public override decimal indirimHesapla(decimal fiyat)
+        {
+            return fiyat * (decimal) 0.75;
         }
     }
 }

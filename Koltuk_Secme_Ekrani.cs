@@ -47,14 +47,14 @@ namespace NDAT
                 decimal koltukFiyat = seciliKoltuk.Fiyat;
 
                 // İndirimli fiyatı hesaplayın
-                //double indirimliFiyat = Demo_Verileri.girisYapanUye.GetDiscountedPrice(koltukFiyat);
+                decimal indirimliFiyat = Demo_Verileri.girisYapanUye.indirimHesapla(seciliKoltuk.Fiyat);
 
                 // Koltuğun durumunu güncelleyin
                 Demo_Verileri.secilenUcus.Koltuklar[seciliKoltuk.KoltukKonum].Durum = KoltukDurumu.Dolu;
                 ComboBoxlariDoldur();
 
                 // Kullanıcıya mesaj gösterin
-                MessageBox.Show($"Üye Tipi: {Demo_Verileri.girisYapanUye.UyelikTipi}\nNormal Fiyat: {seciliKoltuk.Fiyat}\nİndirimli Fiyat:  TL", "Bilet Satın Alındı");
+                MessageBox.Show($"Üye Tipi: {Demo_Verileri.girisYapanUye.UyelikTipi}\nNormal Fiyat: {seciliKoltuk.Fiyat}\nİndirimli Fiyat: {indirimliFiyat} TL", "Bilet Satın Alındı");
                 
             }
             else
