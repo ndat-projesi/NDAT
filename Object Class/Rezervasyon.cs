@@ -32,17 +32,19 @@ namespace NDAT
         public Timer zamanlayici { get; set; }
 
         // Constructor
-        public Rezervasyon(long rezervasyonId, Uye uye, Ucus ucus, DateTime tarih, RezervasyonDurumu durum, DateTime olusturmaTarihi)
+        public Rezervasyon(long rezervasyonId, Uye uye, Ucus ucus, int koltukid, DateTime tarih, RezervasyonDurumu durum, DateTime olusturmaTarihi)
         {
             RezId = rezervasyonId;
 
             uyeID = uye.UyeId;
             ucusID = ucus.UcusId;
+            koltukID = koltukid;
             Tarih = tarih;
             Durum = durum;
             OlusturmaTarihi = olusturmaTarihi;
 
             zamanlayici = new Timer(zamanlayici_Tick, rezervasyonId, 60000, 0);
+            Demo_Verileri.rezervasyonlar.Add(this);
         }
 
         private void zamanlayici_Tick(object state)
@@ -52,6 +54,7 @@ namespace NDAT
                 Demo_Verileri.rezervasyonlar.RemoveAll(u=> u.RezId.Equals(RezId));
                 Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(ucusID)).Koltuklar.Find(u => u.koltukID.Equals(koltukID)).Durum = KoltukDurumu.Bos;
             }
+            zamanlayici.Dispose();
         }
     }
 

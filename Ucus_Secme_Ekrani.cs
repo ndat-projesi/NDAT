@@ -156,9 +156,13 @@ namespace NDAT
             }
             else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Bos)
             {
-                Demo_Verileri.rezervasyonlar.Add(new Rezervasyon(DateTime.Now.Ticks, Demo_Verileri.girisYapanUye, Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)), DateTime.Now, RezervasyonDurumu.Bekleyen, DateTime.Now));
+                Demo_Verileri.rezervasyonlar.Add(new Rezervasyon(DateTime.Now.Ticks, Demo_Verileri.girisYapanUye, Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)), secilikoltukID, DateTime.Now, RezervasyonDurumu.Bekleyen, DateTime.Now));
                 Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum = KoltukDurumu.Rezerve;
                 ComboBoxlariDoldur();
+                Timer zamanlayici = new Timer { Interval = 61000 };
+                zamanlayici.Tick += (send, a) => { ComboBoxlariDoldur(); Console.WriteLine("Aga bende de sorun yok."); zamanlayici.Dispose(); };
+                zamanlayici.Start();   
+
                 MessageBox.Show("Koltuk 60 saniyeliğine rezerve edildi.");
             }
             else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Rezerve)
