@@ -156,15 +156,9 @@ namespace NDAT
             }
             else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Bos)
             {
+                Demo_Verileri.rezervasyonlar.Add(new Rezervasyon(DateTime.Now.Ticks, Demo_Verileri.girisYapanUye, Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)), DateTime.Now, RezervasyonDurumu.Bekleyen, DateTime.Now));
                 Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum = KoltukDurumu.Rezerve;
                 ComboBoxlariDoldur();
-                Timer zamanlayici = new Timer
-                {
-                    Tag = secilikoltukID,
-                    Interval = 60000,
-                };
-                zamanlayici.Tick += RezervasyonTimer_Tick;
-                zamanlayici.Start();
                 MessageBox.Show("Koltuk 60 saniyeliğine rezerve edildi.");
             }
             else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Rezerve)
@@ -176,17 +170,6 @@ namespace NDAT
                 MessageBox.Show("Koltuk zaten dolu durumda. Lütfen başka bir koltuk seçin.");
             }
         }
-        private void RezervasyonTimer_Tick(object sender, EventArgs e)
-        {
-            Timer zamanlayici = sender as Timer;
-            if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar[int.Parse(zamanlayici.Tag.ToString())].Durum != KoltukDurumu.Dolu)
-            {
-                Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar[int.Parse(zamanlayici.Tag.ToString())].Durum = KoltukDurumu.Bos;
-                ComboBoxlariDoldur();
-                zamanlayici.Dispose();
-                MessageBox.Show("Rezervasyon süresi doldu. Koltuk tekrar boş durumda.");
-            }
-        }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Koltuk gecici = KoltukListesiKutusu.SelectedItem as Koltuk;
@@ -196,5 +179,6 @@ namespace NDAT
                 secilikoltukID = gecici.koltukID;
             }
         }
+
     }
 }

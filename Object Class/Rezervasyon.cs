@@ -1,7 +1,9 @@
-﻿using System;
+﻿using NDAT.Object_Class;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NDAT
@@ -16,25 +18,42 @@ namespace NDAT
     // Rezervasyon sınıfı
     public class Rezervasyon
     {
-        public int RezervasyonId { get; set; }
+        public long RezId { get; set; }
 
         public int uyeID { get; set; }
-        
+
         public uint ucusID { get; set; }
+
+        public int koltukID { get; set; }
         public DateTime Tarih { get; set; }
         public RezervasyonDurumu Durum { get; set; }
         public DateTime OlusturmaTarihi { get; set; }
 
+        public Timer zamanlayici { get; set; }
+
         // Constructor
-        public Rezervasyon(int rezervasyonId, Uye uye, Ucus ucus, DateTime tarih, RezervasyonDurumu durum, DateTime olusturmaTarihi)
+        public Rezervasyon(long rezervasyonId, Uye uye, Ucus ucus, DateTime tarih, RezervasyonDurumu durum, DateTime olusturmaTarihi)
         {
-            RezervasyonId = rezervasyonId;
+            RezId = rezervasyonId;
 
             uyeID = uye.UyeId;
             ucusID = ucus.UcusId;
             Tarih = tarih;
             Durum = durum;
             OlusturmaTarihi = olusturmaTarihi;
+
+            zamanlayici = new Timer(zamanlayici_Tick, rezervasyonId, 60000, 0);
+        }
+
+        private void zamanlayici_Tick(object state)
+        {
+            if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(ucusID)).Koltuklar.Find(u => u.koltukID.Equals(koltukID)).Durum != KoltukDurumu.Dolu)
+            {
+                Demo_Verileri.rezervasyonlar.RemoveAll(u=> u.RezId.Equals(RezId));
+                Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(ucusID)).Koltuklar.Find(u => u.koltukID.Equals(koltukID)).Durum = KoltukDurumu.Bos;
+            }
         }
     }
+
 }
+

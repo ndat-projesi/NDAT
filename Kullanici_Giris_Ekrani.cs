@@ -26,6 +26,9 @@ namespace NDAT
                                   u.Soyad.Equals(SifreKutusu.Text, StringComparison.OrdinalIgnoreCase)
             );
 
+            KullaniciAdiKutusu.Text = "";
+            SifreKutusu.Text = "";
+
             if (uye != null)
             {
                 // Giriş yapan kullanıcıyı kaydet.
@@ -34,12 +37,18 @@ namespace NDAT
                 // Uçuş seçme ekranını göster.
                 Ucus_Secme_Ekrani ucusSecmeEkrani = new Ucus_Secme_Ekrani();
                 Hide();
+                ucusSecmeEkrani.FormClosed += new FormClosedEventHandler(ucusSecmeEkrani_Closed);
                 ucusSecmeEkrani.Show();
             }
             else
             {
                 MessageBox.Show("Kullanıcı adı veya şifre geçersiz.", "Giriş Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void ucusSecmeEkrani_Closed(object sender, FormClosedEventArgs e)
+        {
+            Demo_Verileri.girisYapanUye = null;
+            Show();
         }
     }
 }
