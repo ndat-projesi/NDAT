@@ -15,13 +15,13 @@ namespace NDAT.Object_Class
         public static Uye girisYapanUye = null;
 
         // Seçilen uçuş bilgisi, "Ucus_Secme_Ekrani" formunda belirlenir.
-        public static Ucus secilenUcus = null;
+        public static uint secilenUcusID;
 
         public static List<Uye> uyeler = new List<Uye>
             {
-                new Uye(1, "Ahmet", "Yılmaz", "05001112233", "ahmet@gmail.com", DateTime.Now.AddYears(-2), "Normal"),
-                new DaimiUye(2, "Mehmet", "Kaya", "05004445566", "mehmet@gmail.com", DateTime.Now.AddYears(-1), "Daimi", 10, 5),
-                new VIPUye(3, "Ayşe", "Demir", "05007778899", "ayse@gmail.com", DateTime.Now.AddMonths(-6), "VİP", 20, 10)
+                new Uye(1, "Ahmet", "Yılmaz", "05001112233", "ahmet@gmail.com", DateTime.Now.AddYears(-2), UyelikTipi.Normal),
+                new DaimiUye(2, "Mehmet", "Kaya", "05004445566", "mehmet@gmail.com", DateTime.Now.AddYears(-1), UyelikTipi.Daimi, 10, 5),
+                new VIPUye(3, "Ayşe", "Demir", "05007778899", "ayse@gmail.com", DateTime.Now.AddMonths(-6), UyelikTipi.VIP, 20, 10)
             };
 
         public static List<Rezervasyon> rezervasyonlar = new List<Rezervasyon>();

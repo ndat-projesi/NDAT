@@ -22,14 +22,14 @@ namespace NDAT
     // Koltuk sınıfı
     public class Koltuk
     {
-        public int KoltukKonum { get; set; }
+        public int koltukID { get; set; }
         public KoltukDurumu Durum { get; set; }
 
         public KoltukTipi Tip { get; set; }
 
         public Koltuk(int koltukkonum, KoltukDurumu durum, KoltukTipi tip, decimal fiyat)
         {
-            KoltukKonum = koltukkonum;
+            koltukID = koltukkonum;
             Durum = durum;
             Fiyat = fiyat;
             Tip = tip;

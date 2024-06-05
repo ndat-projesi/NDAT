@@ -13,6 +13,8 @@ namespace NDAT
 {
     public partial class Ucus_Secme_Ekrani : Form
     {
+        private int secilikoltukID;
+        private uint seciliUcusID;
         public Ucus_Secme_Ekrani()
         {
             InitializeComponent();
@@ -24,6 +26,8 @@ namespace NDAT
             // ComboBox'ların default değerlerini seç.
             KalkisComboBox.SelectedIndex = 0;
             VarisComboBox.SelectedIndex = 1;
+
+            KoltukListesiKutusu.Format += new ListControlConvertEventHandler(ComboBox_Format);
         }
 
         public void paneleUcusEkle(Ucus ucus)
@@ -32,14 +36,26 @@ namespace NDAT
 
             yeni_kutu.UcusSecmeButonu.Click += (sender, e) =>
             {
-                Demo_Verileri.secilenUcus = ucus;
-                Koltuk_Secme_Ekrani koltuk_Secme_Ekrani = new Koltuk_Secme_Ekrani();
-                Hide();
-                koltuk_Secme_Ekrani.Show();
+                seciliUcusID = ucus.UcusId;
+                UcusRotaLabel.Text = ucus.KalkisYeri + " -> " + ucus.VarisYeri;
+                UcusTarihLabel.Text = ucus.Tarih.ToShortDateString();
+                UcusSaatLabel.Text = ucus.Tarih.ToShortTimeString();
+                ComboBoxlariDoldur();
+                aktifEt();
             };
 
             // Paneli forma ekle.
             UcusPanel.Controls.Add(yeni_kutu);
+        }
+
+        public void aktifEt()
+        {
+            UcusRotaLabel.Visible = true;
+            UcusTarihLabel.Visible = true;
+            UcusSaatLabel.Visible = true;
+            RezerveButonu.Enabled = true;
+            SatinAlButonu.Enabled = true;
+            KoltukListesiKutusu.Enabled = true;
         }
 
         private void ucusBulanamadiPaneli()
@@ -85,6 +101,99 @@ namespace NDAT
             else
             {
                 ucusBulanamadiPaneli();
+            }
+
+
+        }
+
+        private void ComboBox_Format(object sender, ListControlConvertEventArgs e)
+        {
+            // Koltuk nesnesini al.
+            Koltuk koltuk = e.ListItem as Koltuk;
+
+            // Koltuk bilgilerini formatla (spaghetti)
+            e.Value = $"{(koltuk.Tip == KoltukTipi.VIP ? "VIP " : "Normal ")} - {koltuk.koltukID} - {(koltuk.Durum == KoltukDurumu.Bos ? " Boş" : (koltuk.Durum == KoltukDurumu.Rezerve ? " Rezerve" : " Dolu"))}";
+        }
+
+        private void ComboBoxlariDoldur()
+        {
+            KoltukListesiKutusu.DataSource = null;
+            KoltukListesiKutusu.DataSource = Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar;
+            KoltukListesiKutusu.DisplayMember = "Display";
+        }
+        private void SatinAlButonu_Click(object sender, EventArgs e) // Satın Alma
+        {
+            if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Tip == KoltukTipi.VIP && Demo_Verileri.girisYapanUye.uyelikTipi != UyelikTipi.VIP)
+            {
+                MessageBox.Show("Bu koltuk VIP üyelere özeldir. Lütfen başka bir koltuk seçin.");
+            }
+            else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum != KoltukDurumu.Dolu)
+            {
+                // Koltuk fiyatını belirle.
+                decimal koltukFiyat = Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Fiyat;
+
+                // İndirimli fiyatı hesapla.
+                decimal indirimliFiyat = Demo_Verileri.girisYapanUye.indirimHesapla(Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Fiyat);
+
+                // Koltuğun durumunu güncelle.
+                Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum = KoltukDurumu.Dolu;
+                ComboBoxlariDoldur();
+
+                // Kullanıcıya mesaj göster.
+                MessageBox.Show($"Normal Fiyat: {Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Fiyat}\nİndirimli Fiyat: {indirimliFiyat} TL", "Bilet Satın Alındı");
+
+            }
+            else
+            {
+                MessageBox.Show("Koltuk dolu durumda. Lütfen başka bir koltuk seçin.");
+            }
+        }
+        private void RezerveButonu_Click(object sender, EventArgs e) // Rezervasyon
+        {
+            if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Tip == KoltukTipi.VIP && Demo_Verileri.girisYapanUye.uyelikTipi != UyelikTipi.VIP) 
+            {
+                MessageBox.Show("Bu koltuk VIP üyelere özeldir. Lütfen başka bir koltuk seçin.");
+            }
+            else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Bos)
+            {
+                Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum = KoltukDurumu.Rezerve;
+                ComboBoxlariDoldur();
+                Timer zamanlayici = new Timer
+                {
+                    Tag = secilikoltukID,
+                    Interval = 60000,
+                };
+                zamanlayici.Tick += RezervasyonTimer_Tick;
+                zamanlayici.Start();
+                MessageBox.Show("Koltuk 60 saniyeliğine rezerve edildi.");
+            }
+            else if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar.Find(u => u.koltukID.Equals(secilikoltukID)).Durum == KoltukDurumu.Rezerve)
+            {
+                MessageBox.Show("Koltuk zaten rezerve edildi. Lütfen başka bir koltuk seçin.");
+            }
+            else
+            {
+                MessageBox.Show("Koltuk zaten dolu durumda. Lütfen başka bir koltuk seçin.");
+            }
+        }
+        private void RezervasyonTimer_Tick(object sender, EventArgs e)
+        {
+            Timer zamanlayici = sender as Timer;
+            if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar[int.Parse(zamanlayici.Tag.ToString())].Durum != KoltukDurumu.Dolu)
+            {
+                Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(seciliUcusID)).Koltuklar[int.Parse(zamanlayici.Tag.ToString())].Durum = KoltukDurumu.Bos;
+                ComboBoxlariDoldur();
+                zamanlayici.Dispose();
+                MessageBox.Show("Rezervasyon süresi doldu. Koltuk tekrar boş durumda.");
+            }
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Koltuk gecici = KoltukListesiKutusu.SelectedItem as Koltuk;
+            
+            if (gecici != null)
+            {
+                secilikoltukID = gecici.koltukID;
             }
         }
     }
