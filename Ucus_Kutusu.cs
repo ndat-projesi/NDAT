@@ -19,6 +19,7 @@ namespace NDAT
             RotaVeriLabel.Text = ucus.KalkisYeri + " -> " + ucus.VarisYeri;
             TarihVeriLabel.Text = ucus.Tarih.ToShortDateString();
             SaatVeriLabel.Text = ucus.Tarih.ToShortTimeString();
+            FiyatVeriLabel.Text = ucus.Koltuklar[0].Fiyat.ToString();
         }
     }
 }

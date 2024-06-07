@@ -35,17 +35,17 @@ namespace NDAT
                 Demo_Verileri.girisYapanUye = uye;
 
                 // Uçuş seçme ekranını göster.
-                Ucus_Secme_Ekrani ucusSecmeEkrani = new Ucus_Secme_Ekrani();
+                Karsilama_Ekrani karsilamaEkrani = new Karsilama_Ekrani();
                 Hide();
-                ucusSecmeEkrani.FormClosed += new FormClosedEventHandler(ucusSecmeEkrani_Closed);
-                ucusSecmeEkrani.Show();
+                karsilamaEkrani.FormClosed += new FormClosedEventHandler(karsilamaEkrani_Closed);
+                karsilamaEkrani.Show();
             }
             else
             {
                 MessageBox.Show("Kullanıcı adı veya şifre geçersiz.", "Giriş Başarısız", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void ucusSecmeEkrani_Closed(object sender, FormClosedEventArgs e)
+        private void karsilamaEkrani_Closed(object sender, FormClosedEventArgs e)
         {
             Demo_Verileri.girisYapanUye = null;
             Show();

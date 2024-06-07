@@ -44,6 +44,7 @@
             this.UcusRotaLabel = new System.Windows.Forms.Label();
             this.UcusTarihLabel = new System.Windows.Forms.Label();
             this.UcusSaatLabel = new System.Windows.Forms.Label();
+            this.GeriDonButonu = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // KalkisSehriLabel
@@ -203,11 +204,22 @@
             this.UcusSaatLabel.TabIndex = 20;
             this.UcusSaatLabel.Visible = false;
             // 
+            // GeriDonButonu
+            // 
+            this.GeriDonButonu.Location = new System.Drawing.Point(607, 245);
+            this.GeriDonButonu.Name = "GeriDonButonu";
+            this.GeriDonButonu.Size = new System.Drawing.Size(75, 23);
+            this.GeriDonButonu.TabIndex = 21;
+            this.GeriDonButonu.Text = "Geri Dön";
+            this.GeriDonButonu.UseVisualStyleBackColor = true;
+            this.GeriDonButonu.Click += new System.EventHandler(this.GeriDonButonu_Click);
+            // 
             // Ucus_Secme_Ekrani
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(692, 276);
+            this.Controls.Add(this.GeriDonButonu);
             this.Controls.Add(this.UcusSaatLabel);
             this.Controls.Add(this.UcusTarihLabel);
             this.Controls.Add(this.UcusRotaLabel);
@@ -226,7 +238,7 @@
             this.Controls.Add(this.KalkisSehriLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "Ucus_Secme_Ekrani";
-            this.Text = "Ucus_Secme_Ekrani";
+            this.Text = "Uçuş Seçme Ekranı";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,5 +262,6 @@
         private System.Windows.Forms.Label UcusRotaLabel;
         private System.Windows.Forms.Label UcusTarihLabel;
         private System.Windows.Forms.Label UcusSaatLabel;
+        private System.Windows.Forms.Button GeriDonButonu;
     }
 }

@@ -35,6 +35,8 @@
             this.TarihVeriLabel = new System.Windows.Forms.Label();
             this.SaatVeriLabel = new System.Windows.Forms.Label();
             this.UcusSecmeButonu = new System.Windows.Forms.Button();
+            this.FiyatLabel = new System.Windows.Forms.Label();
+            this.FiyatVeriLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // RotaLabel
@@ -100,12 +102,32 @@
             this.UcusSecmeButonu.Text = "Seç";
             this.UcusSecmeButonu.UseVisualStyleBackColor = true;
             // 
+            // FiyatLabel
+            // 
+            this.FiyatLabel.AutoSize = true;
+            this.FiyatLabel.Location = new System.Drawing.Point(3, 42);
+            this.FiyatLabel.Name = "FiyatLabel";
+            this.FiyatLabel.Size = new System.Drawing.Size(32, 13);
+            this.FiyatLabel.TabIndex = 7;
+            this.FiyatLabel.Text = "Fiyat:";
+            // 
+            // FiyatVeriLabel
+            // 
+            this.FiyatVeriLabel.AutoSize = true;
+            this.FiyatVeriLabel.Location = new System.Drawing.Point(42, 42);
+            this.FiyatVeriLabel.Name = "FiyatVeriLabel";
+            this.FiyatVeriLabel.Size = new System.Drawing.Size(67, 13);
+            this.FiyatVeriLabel.TabIndex = 8;
+            this.FiyatVeriLabel.Text = "Fiyat not set.";
+            // 
             // Ucus_Kutusu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.FiyatVeriLabel);
+            this.Controls.Add(this.FiyatLabel);
             this.Controls.Add(this.UcusSecmeButonu);
             this.Controls.Add(this.SaatVeriLabel);
             this.Controls.Add(this.TarihVeriLabel);
@@ -129,5 +151,7 @@
         private System.Windows.Forms.Label TarihVeriLabel;
         private System.Windows.Forms.Label SaatVeriLabel;
         public System.Windows.Forms.Button UcusSecmeButonu;
+        private System.Windows.Forms.Label FiyatLabel;
+        private System.Windows.Forms.Label FiyatVeriLabel;
     }
 }

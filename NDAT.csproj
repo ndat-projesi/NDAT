@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Karsilama_Ekrani.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Karsilama_Ekrani.Designer.cs">
+      <DependentUpon>Karsilama_Ekrani.cs</DependentUpon>
+    </Compile>
     <Compile Include="Object Class\Bilet.cs" />
     <Compile Include="Kullanici_Giris_Ekrani.cs">
       <SubType>Form</SubType>
@@ -77,6 +83,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Object Class\Ucus.cs" />
     <Compile Include="Object Class\Uye.cs" />
+    <Compile Include="Rezervasyon_Kutusu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Rezervasyon_Kutusu.Designer.cs">
+      <DependentUpon>Rezervasyon_Kutusu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ucus_Secme_Ekrani.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +101,9 @@
     <Compile Include="Ucus_Kutusu.Designer.cs">
       <DependentUpon>Ucus_Kutusu.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Karsilama_Ekrani.resx">
+      <DependentUpon>Karsilama_Ekrani.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Kullanici_Giris_Ekrani.resx">
       <DependentUpon>Kullanici_Giris_Ekrani.cs</DependentUpon>
     </EmbeddedResource>
@@ -101,6 +116,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Rezervasyon_Kutusu.resx">
+      <DependentUpon>Rezervasyon_Kutusu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ucus_Secme_Ekrani.resx">
       <DependentUpon>Ucus_Secme_Ekrani.cs</DependentUpon>
     </EmbeddedResource>

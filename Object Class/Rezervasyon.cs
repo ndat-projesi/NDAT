@@ -51,7 +51,7 @@ namespace NDAT
         {
             if (Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(ucusID)).Koltuklar.Find(u => u.koltukID.Equals(koltukID)).Durum != KoltukDurumu.Dolu)
             {
-                Demo_Verileri.rezervasyonlar.RemoveAll(u=> u.RezId.Equals(RezId));
+                Demo_Verileri.rezervasyonlar.Find(u => u.RezId.Equals((long)state)).Durum = RezervasyonDurumu.IptalEdilmis;
                 Demo_Verileri.ucuslar.Find(u => u.UcusId.Equals(ucusID)).Koltuklar.Find(u => u.koltukID.Equals(koltukID)).Durum = KoltukDurumu.Bos;
             }
             zamanlayici.Dispose();
